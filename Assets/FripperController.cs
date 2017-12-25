@@ -42,21 +42,23 @@ public class FripperController : MonoBehaviour {
                                 
                 //タッチされた時の処理
                 if(Input.touchCount > 0){
-                        //画面の左側をタッチした時フリッパーを動かす
-                        if(Input.GetTouch(0).position.x < Screen.width / 2 && tag == "LeftFripperTag"){
-                        SetAngle (this.flickAngle);
+                        foreach(Touch t in Input.touches){
+                                //画面の左側をタッチした時フリッパーを動かす
+                                if(t.position.x < Screen.width / 2 && tag == "LeftFripperTag"){
+                                SetAngle (this.flickAngle);
+                                }
+                                //画面の右側をタッチした時フリッパーを動かす
+                                if(t.position.x > Screen.width / 2 && tag == "RightFripperTag"){
+                                SetAngle (this.flickAngle);
+                                }
+                                //画面から指を離した際にフリッパーを元に戻す
+                                if(t.phase == TouchPhase.Ended && tag == "LeftFripperTag"){
+                                SetAngle (this.defaultAngle);
+                                }
+                                if(t.phase == TouchPhase.Ended && tag == "RightFripperTag"){
+                                SetAngle (this.defaultAngle);
+                                }       
                         }
-                        //画面の右側をタッチした時フリッパーを動かす
-                        if(Input.GetTouch(0).position.x > Screen.width / 2 && tag == "RightFripperTag"){
-                        SetAngle (this.flickAngle);
-                        }
-                        //画面から指を離した際にフリッパーを元に戻す
-                        if(Input.GetTouch(0).phase == TouchPhase.Ended && tag == "LeftFripperTag"){
-                        SetAngle (this.defaultAngle);
-                        }
-                        if(Input.GetTouch(0).phase == TouchPhase.Ended && tag == "RightFripperTag"){
-                        SetAngle (this.defaultAngle);
-                        }       
                 }
         }
 
